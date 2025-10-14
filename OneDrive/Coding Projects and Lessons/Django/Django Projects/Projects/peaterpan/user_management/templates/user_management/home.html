@@ -1,0 +1,12 @@
+{% extends "user_management/layout.html" %}
+{% load static %}
+
+{% block page_title %}Home | Hobbysite{% endblock %}
+
+{% block style %}<style></style>{% endblock %}
+
+{% block body %}
+    <ul class="app-list">
+        <li><a href="{% url 'show_products_list' %}">Store</a></li>
+    </ul>
+{% endblock %}

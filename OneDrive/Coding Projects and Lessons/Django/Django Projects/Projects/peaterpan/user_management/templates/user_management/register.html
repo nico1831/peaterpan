@@ -1,0 +1,97 @@
+{% extends "user_management/layout.html" %}
+{% load static %}
+
+{% block page_title %}Register | Hobbysite{% endblock %}
+
+{% block style %}<style></style>{% endblock %}
+
+{% block body %}
+    <div class="login-form">
+    <!-- <form action="{% url 'register' %}" method="post" class="update-add-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="text" name="display_name" placeholder="Display Name">
+        <input type="email" name="email" placeholder="Email">
+        <select name="user_type" required>
+            <option value="" disabled selected>Select User Type</option>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+        </select>        
+        <input type="hidden" id="id_latitude" name="latitude">
+        <input type="hidden" id="id_longitude" name="longitude">
+        <input type="submit" value="Register" class="button-container">
+    </form> -->
+
+    <form action="{% url 'register' %}" method="post" class="update-add-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="text" name="display_name" placeholder="Display Name">
+        <input type="email" name="email" placeholder="Email">
+
+        <select name="user_type" id="user_type_select" required>
+            <option value="" disabled selected>Select User Type</option>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+        </select>        
+
+        <input type="hidden" id="id_latitude" name="latitude">
+        <input type="hidden" id="id_longitude" name="longitude">
+
+        <!-- Seller verification div, hidden by default -->
+        <div id="seller-verification" style="display:none; margin-top: 20px; border: 1px solid #ccc; padding: 20px;">
+            <h3>Seller Verification</h3>
+            <label for="business_doc">Upload Business Document:</label><br>
+            <input type="file" name="business_doc" id="business_doc" accept=".pdf,.jpg,.png"><br><br>
+
+            <label for="naver_map_link">Naver Map Link:</label><br>
+            <input type="url" name="naver_map_link" id="naver_map_link" placeholder="https://map.naver.com/..."><br><br>
+        </div>
+
+        <input type="submit" value="Register" class="button-container">
+    </form>
+
+
+    <div id="seller-verification-popup" style="display:none; border: 1px solid #ccc; padding: 20px; margin-top: 20px;">
+        <h3>Seller Verification</h3>
+        <label for="business_doc">Upload Business Document:</label><br>
+        <input type="file" name="business_doc" id="business_doc" accept=".pdf,.jpg,.png"><br><br>
+        
+        <label for="naver_map_link">Naver Map Link:</label><br>
+        <input type="url" name="naver_map_link" id="naver_map_link" placeholder="https://map.naver.com/..."><br><br>
+        
+        <button type="button" id="close-popup">Close</button>
+    </div>
+
+
+     <!-- Display error message -->
+     {% if messages %}
+     <ul>
+         {% for message in messages %}
+             <li style="color: red;">{{ message }}</li>
+         {% endfor %}
+     </ul>
+ {% endif %}
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userTypeSelect = document.getElementById('user_type_select');
+        const verificationDiv = document.getElementById('seller-verification');
+
+        userTypeSelect.addEventListener('change', function () {
+            if (this.value === 'seller') {
+                verificationDiv.style.display = 'block';
+            } else {
+                verificationDiv.style.display = 'none';
+                // Clear inputs if back to buyer
+                document.getElementById('business_doc').value = '';
+                document.getElementById('naver_map_link').value = '';
+            }
+        });
+    });
+    </script>
+
+
+{% endblock %}

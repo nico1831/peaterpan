@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> <!-- Imports Roboto font -->
+    </head>
+    <body>
+
+        <nav>
+            <a href="{% url 'home' %}">HOBBY SITE</a>
+        </nav>
+
+        <div class="content-div">
+            {% block body %}{% endblock %}
+        </div>
+
+    </body>
+</html>

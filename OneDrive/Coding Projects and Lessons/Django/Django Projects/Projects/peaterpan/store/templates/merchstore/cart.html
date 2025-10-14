@@ -1,0 +1,37 @@
+{% extends "merchstore/layout.html" %}
+{% block body %}
+
+<div class="cart-container">
+    <h3>CART VIEW (see what you BOUGHT)</h3>
+
+    {% regroup transactions by product.owner as seller_groups %}
+
+    {% if seller_groups %}
+        {% for group in seller_groups %}
+            <div class="top-left-section">
+                <h4>Seller: {{ group.grouper.user.username }}</h4>
+            </div>
+            <div class="trans-cart-details">
+                <ul>
+                    {% for transaction in group.list %}
+                        <li>
+                            <strong>Product:</strong> {{ transaction.product.name }} |
+                            <strong>Amount:</strong> {{ transaction.amount }} |
+                            <strong>Status:</strong> {{ transaction.get_status_display }} |
+                            <strong>Date:</strong> {{ transaction.created_on|date:"Y-m-d H:i" }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No transactions found.</p>
+    {% endif %} 
+</div>
+
+<footer>
+    <a href="{% url 'show_products_list' %}">Back to list of all products</a>
+</footer>
+
+{% endblock %}
