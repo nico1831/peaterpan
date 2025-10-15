@@ -4,7 +4,7 @@
         <div class="top-left-section">
             <h4>Add Product</h4>
         </div>
-        <form method="post" class="update-add-form">
+        <form method="post" class="update-add-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ add_product_form.as_p }}
             <button type="submit">Submit</button>

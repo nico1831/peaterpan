@@ -136,7 +136,7 @@ def add_product(request):
     if (request.method == "POST"): 
         user = request.user  # the logged-in user
         profile = Profile.objects.get(user=user)  # fetch the user's profile
-        product_form = ProductForm(request.POST, prefix="product")
+        product_form = ProductForm(request.POST, request.FILES, prefix="product")
 
         if product_form.is_valid():
             product = product_form.save(commit=False) # Create but don't save yet

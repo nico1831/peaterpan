@@ -12,6 +12,7 @@
     <div class="product-details-whole">
         <div class="product-details">
             {% for detail in product_qs %}
+                <img src="{{ detail.picture.url }}" alt="{{ detail.name }}" class="product-image"/>
                 <div class="top-left-section">
                     <h4>{{ detail.name }}</h4>
                 </div>
