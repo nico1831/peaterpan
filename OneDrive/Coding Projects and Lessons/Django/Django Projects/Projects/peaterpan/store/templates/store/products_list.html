@@ -48,25 +48,37 @@
                 <div id="products-container">
                 {% for product_type in product_type_list %}
                     <div class="product-section" data-category="{{ product_type.name }}" style="display:none;">
-                    <ul class="product-type-list">
+                    <div class="product-type-grid">
                         {% if product_type.name != "Others" %}
                         {% for product in not_users_products_list %}
                             {% if product_type == product.product_type %}
-                            <li>
-                                <a href="{% url 'show_product_details' product.id %}" class="btn">{{ product.name }}</a>
-                            </li>
+                                <a href="{% url 'show_product_details' product.id %}" class="product-card-link">
+                                    <div class="product-card">
+                                        <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
+                                        <div class="product-info">
+                                            <span class="product-name">{{ product.name }}</span>
+                                            <span class="product-price">{{ product.price }}원</span>
+                                        </div>
+                                    </div>
+                                </a>
                             {% endif %}
                         {% endfor %}
                         {% else %}
                         {% for product in null_product_type_list %}
                             {% if product.owner != profile %}
-                            <li>
-                                <a href="{% url 'show_product_details' product.id %}" class="btn">{{ product.name }}</a>
-                            </li>
+                            <a href="{% url 'show_product_details' product.id %}" class="product-card-link">
+                                <div class="product-card">
+                                    <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
+                                    <div class="product-info">
+                                        <p class="product-name">{{ product.name }}</p>
+                                        <p class="product-price">{{ product.price }}원</p>
+                                    </div>
+                                </div>
+                            </a>
                             {% endif %}
                         {% endfor %}
                         {% endif %}
-                    </ul>
+                        </div>
                     </div>
                 {% endfor %}
                 {% endif %} 
