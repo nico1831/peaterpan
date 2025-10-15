@@ -24,7 +24,7 @@ def show_products_of_seller(request, id):
     seller_profile = Profile.objects.get(id=id)
     products_of_seller = Product.objects.filter(owner=seller_profile)
 
-    return render(request, "merchstore/products_of_seller.html", {
+    return render(request, "store/products_of_seller.html", {
         "products_of_seller": products_of_seller,
         "profile": profile,
         "seller_profile": seller_profile,
@@ -68,7 +68,7 @@ def show_products_list(request):
     if has_null_products:
         product_types.append(ProductType(name="Others", description="Products with no particular product type"))
 
-    return render(request, "merchstore/products_list.html", {
+    return render(request, "store/products_list.html", {
         "users_products_list": is_users,
         "not_users_products_list": is_not_users,
         "user": user,
@@ -123,7 +123,7 @@ def show_product_details(request, num):
 
     transaction_form = TransactionForm(prefix="transaction")
 
-    return render(request, "merchstore/product_details.html", {
+    return render(request, "store/product_details.html", {
         "product_qs": product_qs,
         "product_obj": product_obj,
         "profile": profile,
@@ -155,7 +155,7 @@ def add_product(request):
     
     product_form = ProductForm(prefix="product")
 
-    return render(request, 'merchstore/add_product.html', {
+    return render(request, 'store/add_product.html', {
         'add_product_form': product_form,
     })
 
@@ -164,7 +164,7 @@ def show_cart(request):
     user = request.user 
     profile = Profile.objects.get(user=user) 
     transaction = Transaction.objects.filter(buyer=profile).order_by('product__owner__user__username', 'created_on') # filters transactions to what user has bought AND order it by name of seller
-    return render(request, 'merchstore/cart.html', {
+    return render(request, 'store/cart.html', {
         'transactions': transaction,
     })
 
@@ -192,7 +192,7 @@ def update_product(request, product_id):
     else:
         product_form = ProductForm(instance=product)  # Pre-filled with existing values
 
-    return render(request, 'merchstore/update.html', {
+    return render(request, 'store/update.html', {
         'update_product_form': product_form,
     })
 
@@ -202,6 +202,6 @@ def show_transactions(request): # show what user has sold
     profile = Profile.objects.get(user=user) 
     transactions = Transaction.objects.filter(product__owner=profile).order_by('buyer__user__username', 'created_on') # filters transactions to what user has sold AND order it by name of buyer
 
-    return render(request, 'merchstore/transactions.html', {
+    return render(request, 'store/transactions.html', {
         'transactions': transactions,
     })

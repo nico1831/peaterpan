@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'store/styles.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <nav>
+            <a href="{% url 'home' %}">SITE</a>
+        </nav>
+
+        <div class="content-div">
+            {% block body %}{% endblock %}
+        </div>
+
+    </body>
+</html>

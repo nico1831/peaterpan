@@ -1,12 +1,12 @@
-{% extends "merchstore/layout.html" %}
+{% extends "store/layout.html" %}
 {% block body %}
     <div class="whole-update-add-form">
         <div class="top-left-section">
-            <h4>Add Product</h4>
+            <h4>Update/Edit product</h4>
         </div>
         <form method="post" class="update-add-form">
             {% csrf_token %}
-            {{ add_product_form.as_p }}
+            {{ update_product_form.as_p }}
             <button type="submit">Submit</button>
         </form>
     </div>

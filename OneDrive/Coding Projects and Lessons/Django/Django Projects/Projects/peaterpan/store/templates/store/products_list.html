@@ -1,0 +1,110 @@
+{% extends 'store/layout.html' %}
+
+{% block title %}store - Hobby Site{% endblock %}
+
+{% block body %}
+
+    <div class="margin-container">
+
+        {% if request.user.profile.user_type == 'seller' %}
+            <div class="product-section">
+                <div class="top-left-section">
+                    <h4>your products</h4>
+                </div>
+                <div class="product-type" id="your-products">
+                    <ul class="product-type-list">
+                        {% for product in users_products_list %}
+                            <li>
+                                <a href="{% url 'show_product_details' product.id %}" class="btn">
+                                    {{ product.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if request.user.profile.user_type == 'buyer' %}
+
+            <div class="map-section">
+                <h3>Find Nearby Sellers</h3>
+                <div class="map-container">
+                    {{ map_context.map|safe }}
+                </div>
+            </div>
+
+            <div class="category-product-container">
+                <h3>Find Products by Category</h3>
+
+                <!-- Horizontal scrollable category buttons -->
+                <div class="category-bar">
+                {% for product_type in product_type_list %}
+                    <button class="category-btn" data-category="{{ product_type.name }}">{{ product_type.name }}</button>
+                {% endfor %}
+                </div>
+
+                <!-- Container to display products vertically -->
+                <div id="products-container">
+                {% for product_type in product_type_list %}
+                    <div class="product-section" data-category="{{ product_type.name }}" style="display:none;">
+                    <ul class="product-type-list">
+                        {% if product_type.name != "Others" %}
+                        {% for product in not_users_products_list %}
+                            {% if product_type == product.product_type %}
+                            <li>
+                                <a href="{% url 'show_product_details' product.id %}" class="btn">{{ product.name }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        {% for product in null_product_type_list %}
+                            {% if product.owner != profile %}
+                            <li>
+                                <a href="{% url 'show_product_details' product.id %}" class="btn">{{ product.name }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </ul>
+                    </div>
+                {% endfor %}
+                {% endif %} 
+            </div>
+    </div>
+
+        <script>
+        // Show products for selected category only
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+            document.querySelectorAll('.product-section').forEach(section => {
+                section.style.display = (section.dataset.category === button.dataset.category) ? 'block' : 'none';
+            });
+
+            // Optional: highlight selected category button
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            });
+        });
+
+        // Initially select the first category
+        if (document.querySelector('.category-btn')) {
+            document.querySelector('.category-btn').click();
+        }
+        </script> 
+    
+
+    <footer>
+        
+        {% if request.user.profile.user_type == 'seller' %}
+            <a href="{% url 'add_product' %}">Add new product</a>
+        {% endif %}
+
+        {% if request.user.profile.user_type == 'buyer' %}
+        <a href="{% url 'show_cart' %}">Show cart</a>
+        {% endif %}
+
+        <a href="{% url 'show_transactions' %}">Show transactions</a>
+    </footer>
+
+{% endblock %}

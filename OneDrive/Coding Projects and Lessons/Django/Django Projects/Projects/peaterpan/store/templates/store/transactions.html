@@ -1,15 +1,15 @@
-{% extends "merchstore/layout.html" %}
+{% extends "store/layout.html" %}
 {% block body %}
 
 <div class="cart-container">
-    <h3>CART VIEW (see what you BOUGHT)</h3>
+    <h3>TRANSACTION VIEW (see what you SOLD)</h3>
 
-    {% regroup transactions by product.owner as seller_groups %}
+    {% regroup transactions by buyer as buyer_groups %}
 
-    {% if seller_groups %}
-        {% for group in seller_groups %}
+    {% if buyer_groups %}
+        {% for group in buyer_groups %}
             <div class="top-left-section">
-                <h4>Seller: {{ group.grouper.user.username }}</h4>
+                <h4>Buyer: {{ group.grouper.user.username }}</h4>
             </div>
             <div class="trans-cart-details">
                 <ul>
@@ -27,7 +27,7 @@
         {% endfor %}
     {% else %}
         <p>No transactions found.</p>
-    {% endif %} 
+    {% endif %}
 </div>
 
 <footer>

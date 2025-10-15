@@ -1,0 +1,79 @@
+body{
+  font-family: "BBH Sans Hegarty", sans-serif;
+  font-weight: 0;
+  font-style: light;
+  background-color: #282828;
+}
+
+.margin-container{
+    margin: 0 15px;
+}
+
+.map-section {
+    padding: 8px 16px;
+    background: #282828;
+}
+
+.map-section h3 {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    color:#b4cd67;
+}
+
+.map-container > iframe, 
+.map-container > div {
+  width: 100% !important;
+  height: auto; /* or specific height */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.category-product-container{
+    background-color: #92af39;
+    margin: 0 15px;
+    border-radius: 14px;
+    padding: 10px 5px;
+    margin-top: 16px;
+}
+
+.category-product-container h3{
+    color:#282828;
+    text-align: center;
+}
+
+.product-section {
+    padding: 16px;
+}
+
+.category-bar {
+    display: flex;
+    overflow-x: auto;
+    padding: 8px 0;
+    gap: 12px;
+    border-bottom: 1px solid #ccc;
+}
+
+.category-btn {
+    flex: 0 0 auto;
+    background: #b4cd67;
+    border: none;
+    border-radius: 14px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.category-btn.active {
+    background: #92af39;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .map-container {
+    width: 90vw !important;
+    max-width: 90vw !important;
+    margin: 0 auto;
+  }
+}

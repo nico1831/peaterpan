@@ -44,6 +44,7 @@ class Product(models.Model):
         choices=STATUS_CHOICES,
         default='Available'
     )
+    picture = models.ImageField(upload_to='product_pics/', null=True, blank=True)  # New field for product images
 
     # Ensures that products are displayed by their names (instead of IDs) in admin
     def __str__(self):
