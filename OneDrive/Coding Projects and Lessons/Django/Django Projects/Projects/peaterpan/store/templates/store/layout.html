@@ -13,12 +13,42 @@
         <nav>
             <a href="{% url 'store:show_products_list' %}">
                 <img src="{% static 'logo.png' %}" alt="Site Logo" class="logo"/>
-            </a>
+            </a>            
+            <button id="menu-btn" class="menu-btn" aria-label="Open menu">
+                <img src="{% static 'menu-icon.png' %}" alt="☰" class="menu-icon"/>
+            </button>
         </nav>
+
+        <!-- Sidebar content -->
+        <div id="sidebar" class="sidebar">
+        <button id="close-btn" class="close-btn" aria-label="Close menu">&times;</button>
+        <ul>
+            <li><a href="{% url 'store:show_cart' %}">Cart</a></li>
+            <li><a href="{% url 'store:show_transactions' %}">Transactions</a></li>
+            <li><a href="{% url 'store:show_products_list' %}">Products List</a></li>
+            <!-- more links -->
+        </ul>
+        </div>
 
         <div class="content-div">
             {% block body %}{% endblock %}
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const menuBtn = document.getElementById("menu-btn");
+                const sidebar = document.getElementById("sidebar");
+                const closeBtn = document.getElementById("close-btn");
+
+                menuBtn.addEventListener("click", function () {
+                sidebar.classList.add("active");
+                });
+
+                closeBtn.addEventListener("click", function () {
+                sidebar.classList.remove("active");
+                });
+            });
+            </script>
 
     </body>
 </html>
