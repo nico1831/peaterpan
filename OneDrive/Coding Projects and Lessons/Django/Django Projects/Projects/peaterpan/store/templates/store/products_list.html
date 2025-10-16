@@ -57,7 +57,7 @@
                                         <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
                                         <div class="product-info">
                                             <span class="product-name">{{ product.name }}</span>
-                                            <span class="product-price">{{ product.price }}원</span>
+                                            <span class="product-price">{{ product.price|floatformat:0 }}원</span>
                                         </div>
                                     </div>
                                 </a>
@@ -70,8 +70,8 @@
                                 <div class="product-card">
                                     <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
                                     <div class="product-info">
-                                        <p class="product-name">{{ product.name }}</p>
-                                        <p class="product-price">{{ product.price }}원</p>
+                                        <span class="product-name">{{ product.name }}</span>
+                                        <span class="product-price">{{ product.price|floatformat:0 }}원</span>
                                     </div>
                                 </div>
                             </a>
@@ -104,19 +104,4 @@
             document.querySelector('.category-btn').click();
         }
         </script> 
-    
-
-    <footer>
-        
-        {% if request.user.profile.user_type == 'seller' %}
-            <a href="{% url 'store:add_product' %}">Add new product</a>
-        {% endif %}
-
-        {% if request.user.profile.user_type == 'buyer' %}
-        <a href="{% url 'store:show_cart' %}">Show cart</a>
-        {% endif %}
-
-        <a href="{% url 'store:show_transactions' %}">Show transactions</a>
-    </footer>
-
 {% endblock %}
