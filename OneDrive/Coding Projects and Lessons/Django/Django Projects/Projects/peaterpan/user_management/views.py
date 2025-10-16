@@ -68,6 +68,15 @@ def register(request):
             return render(request, "user_management/register.html")
 
         login(request, user)
-        return HttpResponseRedirect(reverse('store:show_products_list'))  
+        if user.profile.user_type == 'seller':
+            # Redirect sellers to their seller-specific page
+            return HttpResponseRedirect(reverse('store:show_products_of_seller', args=[user.profile.id]))
+        elif user.profile.user_type == 'buyer':
+            # Redirect buyers to the general products list page
+            return HttpResponseRedirect(reverse('store:show_products_list'))
+        else:
+            # Optionally handle other user types or fallback
+            return HttpResponseRedirect(reverse('store:some_default_page'))
+ 
     else:
         return render(request, "user_management/register.html")

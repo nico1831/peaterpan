@@ -6,8 +6,9 @@
 {% block style %}<style></style>{% endblock %}
 
 {% block body %}
-    <div class="login-form">
 
+    <div class="regis-part">
+    <h2>Don't have an account?</h2>
     <form action="{% url 'register' %}" method="post" class="update-add-form" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="text" name="username" placeholder="Username">
@@ -36,6 +37,7 @@
 
         <input type="submit" value="Register" class="button-container">
     </form>
+    </div>
 
 
     <div id="seller-verification-popup" style="display:none; border: 1px solid #ccc; padding: 20px; margin-top: 20px;">
@@ -78,5 +80,45 @@
     });
     </script>
 
+    <style>
+        .update-add-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%; /* or a specific width like 300px for narrow form */
+            max-width: 400px; /* optional, limits width */
+            margin: 0 auto; /* center the form horizontally if desired */
+            gap: 5px
+        }
+        h2{
+            color: #92af39;
+            margin-top: 20px;
+        }
+        .regis-part{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        input{
+            border-radius: 12px;
+            border: none;
+            padding: 5px;
+        }
+#seller-verification-popup,
+#seller-verification-popup h3,
+#seller-verification-popup label,
+#seller-verification-popup button {
+    color: #92af39 !important;
+}
+#seller-verification-popup input {
+  color: #92af39 !important;
+}
+#seller-verification-popup input::placeholder {
+  color: #a4bfa0 !important;
+}
+
+
+    </style>
 
 {% endblock %}
