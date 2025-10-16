@@ -15,7 +15,7 @@
                     <ul class="product-type-list">
                         {% for product in users_products_list %}
                             <li>
-                                <a href="{% url 'show_product_details' product.id %}" class="btn">
+                                <a href="{% url 'store:show_product_details' product.id %}" class="btn">
                                     {{ product.name }}
                                 </a>
                             </li>
@@ -52,7 +52,7 @@
                         {% if product_type.name != "Others" %}
                         {% for product in not_users_products_list %}
                             {% if product_type == product.product_type %}
-                                <a href="{% url 'show_product_details' product.id %}" class="product-card-link">
+                                <a href="{% url 'store:show_product_details' product.id %}" class="product-card-link">
                                     <div class="product-card">
                                         <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
                                         <div class="product-info">
@@ -66,7 +66,7 @@
                         {% else %}
                         {% for product in null_product_type_list %}
                             {% if product.owner != profile %}
-                            <a href="{% url 'show_product_details' product.id %}" class="product-card-link">
+                            <a href="{% url 'store:show_product_details' product.id %}" class="product-card-link">
                                 <div class="product-card">
                                     <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
                                     <div class="product-info">
@@ -109,14 +109,14 @@
     <footer>
         
         {% if request.user.profile.user_type == 'seller' %}
-            <a href="{% url 'add_product' %}">Add new product</a>
+            <a href="{% url 'store:add_product' %}">Add new product</a>
         {% endif %}
 
         {% if request.user.profile.user_type == 'buyer' %}
-        <a href="{% url 'show_cart' %}">Show cart</a>
+        <a href="{% url 'store:show_cart' %}">Show cart</a>
         {% endif %}
 
-        <a href="{% url 'show_transactions' %}">Show transactions</a>
+        <a href="{% url 'store:show_transactions' %}">Show transactions</a>
     </footer>
 
 {% endblock %}

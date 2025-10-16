@@ -3,6 +3,22 @@ body{
   font-weight: 0;
   font-style: light;
   background-color: #282828;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+    background-color: #92af39;
+    padding: 2px 15px;
+    display: flex;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 0;
+}
+
+.logo{
+  height: 60px; 
+  width: auto; 
 }
 
 .margin-container{

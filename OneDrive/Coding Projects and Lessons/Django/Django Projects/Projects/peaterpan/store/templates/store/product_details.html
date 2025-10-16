@@ -37,12 +37,12 @@
                 <button type="submit" {% if product_obj.stock <= 0 %}disabled{% endif %}>BUY</button>
             </form>
             <footer>
-                <a href="{% url 'show_products_list' %}">Back to list of all products</a>
+                <a href="{% url 'store:show_products_list' %}">Back to list of all products</a>
             </footer>
         {% else %}
             <footer>
-                <a href="{% url 'update_product' product_obj.id %}">Update/Edit your product</a>
-                <a href="{% url 'show_products_list' %}">Back to list of all products</a>
+                <a href="{% url 'store:update_product' product_obj.id %}">Update/Edit your product</a>
+                <a href="{% url 'store:show_products_list' %}">Back to list of all products</a>
             </footer>
         {% endif %}
     </div>

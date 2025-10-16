@@ -41,9 +41,9 @@ def show_products_list(request):
         if seller.latitude is not None and seller.longitude is not None:
             coordinates = (seller.latitude, seller.longitude)
             # Generate URL to seller's products page
-            url = reverse("show_products_of_seller", args=[seller.id])
+            seller_url = reverse("store:show_products_of_seller", args=[seller.id])
             # Create HTML popup with clickable link (escape seller.display_name to avoid injection)
-            html = f'<a href="{url}" target="_blank">{escape(seller.display_name)}</a>'
+            html = f'<a href="{seller_url}" target="_blank">{escape(seller.display_name)}</a>'
             popup = folium.Popup(html, max_width=300)
             folium.Marker(coordinates, popup=popup).add_to(m)
 
@@ -151,7 +151,7 @@ def add_product(request):
 
             return redirect('show_product_details', num=product.id)
 
-        return redirect('show_products_list')
+        return redirect('store:show_products_list')
     
     product_form = ProductForm(prefix="product")
 
@@ -187,7 +187,7 @@ def update_product(request, product_id):
 
             return redirect('show_product_details', num=product_id)
 
-        return redirect('show_products_list')
+        return redirect('store:show_products_list')
     
     else:
         product_form = ProductForm(instance=product)  # Pre-filled with existing values
