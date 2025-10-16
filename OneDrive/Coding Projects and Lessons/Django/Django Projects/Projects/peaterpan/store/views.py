@@ -104,7 +104,7 @@ def show_product_details(request, num):
             # Prevent overselling
             if transaction.amount > product_obj.stock:
                 messages.error(request, "Not enough stock available.")
-                return redirect('show_product_details', num=num)  
+                return redirect('store:show_product_details', num=num)  
             
             product_obj.stock -= transaction.amount # reduces stock based on quantity bought
 
@@ -119,7 +119,7 @@ def show_product_details(request, num):
             transaction.buyer = profile # Set the desired field value
             transaction.product = product_obj
             transaction.save() # Now save to the database
-        return redirect('show_cart')
+        return redirect('store:show_cart')
 
     transaction_form = TransactionForm(prefix="transaction")
 
@@ -149,7 +149,7 @@ def add_product(request):
                 product.status = 'available'
             product.save() # Now save to the database
 
-            return redirect('show_product_details', num=product.id)
+            return redirect('store:show_products_of_seller', id=profile.id)
 
         return redirect('store:show_products_list')
     
@@ -171,6 +171,14 @@ def show_cart(request):
 @login_required(login_url='login') 
 def update_product(request, product_id): 
     product = Product.objects.get(id=product_id)
+    user = request.user  # the logged-in user
+    
+    # if the user is logged in
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=user)  # fetch the user's profile
+    else:
+        profile = None
+
     if (request.method == "POST"): 
         product_form = ProductForm(request.POST, request.FILES, instance=product)
 
@@ -185,7 +193,7 @@ def update_product(request, product_id):
             
             product_form.save() # Now save to the database
 
-            return redirect('show_product_details', num=product_id)
+            return redirect('store:show_products_of_seller', id=profile.id)
 
         return redirect('store:show_products_list')
     

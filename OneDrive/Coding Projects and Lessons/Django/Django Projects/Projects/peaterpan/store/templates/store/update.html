@@ -1,17 +1,55 @@
 {% extends "store/layout.html" %}
 {% block body %}
     <div class="whole-update-add-form">
-        <div class="top-left-section">
-            <h4>Update/Edit product</h4>
-        </div>
-        <form method="post" class="update-add-form">
+        <h4>Update/Edit product</h4>
+        <form method="post" enctype="multipart/form-data" class="update-add-form">
             {% csrf_token %}
             {{ update_product_form.as_p }}
             <button type="submit">Submit</button>
         </form>
     </div>
 
-    <footer>
-        <a href="{% url 'store:show_products_list'%}">Back to list of all products</a>
-    </footer>
+    <style>
+        .whole-update-add-form {
+            margin-top: 35px;
+            padding: 20px;;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h4{
+            font-size: 25px;
+            color: #92af39;
+        }
+
+        .top-left-section {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .update-add-form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            color: #92af39;
+        }
+
+        .update-add-form button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #92af39;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font: inherit;
+            border-radius: 12px;
+        }
+
+        .update-add-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
 {% endblock %}

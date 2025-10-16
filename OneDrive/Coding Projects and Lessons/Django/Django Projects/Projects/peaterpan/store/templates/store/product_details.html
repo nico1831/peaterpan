@@ -1,49 +1,110 @@
 {% extends "store/layout.html" %}
 {% block body %}
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="margin-container">
 
     <div class="product-details-whole">
-        <div class="product-details">
-            {% for detail in product_qs %}
-                <img src="{{ detail.picture.url }}" alt="{{ detail.name }}" class="product-image"/>
-                <div class="top-left-section">
-                    <h4>{{ detail.name }}</h4>
-                </div>
-                <div class="product-detail-block">
-                    <div class="product-info">
-                        <p><strong>Price:</strong> {{ detail.price }}</p>
-                        <p><strong>Type:</strong> {{ detail.product_type.name }}</p>
-                        <p><strong>Description:</strong> {{ detail.description }}</p>
-                        <p><strong>Stock:</strong> {{ detail.stock }}</p>
-                        <p><strong>Status:</strong> {{ detail.get_status_display }}</p>
-                        <p><strong>Owner:</strong> {{ detail.owner }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+            {% if messages %}
+    <ul class="messages">
+    </ul>
+    {% endif %}
 
-        {% if product_obj.owner != profile %}
+        <div class="left-column">
+            {% for message in messages %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+            {% for detail in product_qs %}
+            <h2>{{ detail.name }}</h2>
+
+            <img src="{{ detail.picture.url }}" alt="{{ detail.name }}" class="product-image"/>
+
+            <p>Type:<strong style="color:#92af39"> {{ detail.product_type.name }}</strong></p>
+            <p>Description:<strong style="color:#92af39"> {{ detail.description }}</strong></p>
+            <p>Stock:<strong style="color:#92af39"> {{ detail.stock }}</strong></p>
+            <p>Status:<strong style="color:#92af39"> {{ detail.get_status_display }}</strong></p>
+            <p>Owner:<strong style="color:#92af39"> {{ detail.owner }}</strong></p>
+
             <form method="post" class="purchase-form">
                 {% csrf_token %}
-                <h2>Buy Product</h2>
+                <p>Price:<strong style="color:#92af39"> {{ detail.price|floatformat:0 }}원</strong> </p>
                 {{ buy_product_form.as_p }}
                 <button type="submit" {% if product_obj.stock <= 0 %}disabled{% endif %}>BUY</button>
             </form>
-            <footer>
-                <a href="{% url 'store:show_products_list' %}">Back to list of all products</a>
-            </footer>
-        {% else %}
-            <footer>
-                <a href="{% url 'store:update_product' product_obj.id %}">Update/Edit your product</a>
-                <a href="{% url 'store:show_products_list' %}">Back to list of all products</a>
-            </footer>
-        {% endif %}
+            {% endfor %}
+        </div>
+
+        </div>
+
     </div>
+
+
+    <style>
+        .margin-container {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h2{
+            color: #ddd;
+        }
+        p{
+            color: #ddd;
+        }
+        .error{
+            color: red;
+        }
+        .product-details-whole {
+            display: flex;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap;
+            }
+
+            .column {
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            }
+
+            .product-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            min-width: 280px; /* prevent shrinking too much */
+            }
+
+            .purchase-form button {
+            background-color: #92af39;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            }
+
+            .purchase-form button:disabled {
+            background-color: #444;
+            cursor: not-allowed;
+            }
+
+            footer a {
+            color: #92af39;
+            text-decoration: none;
+            font-weight: bold;
+            }
+
+            footer a:hover {
+            text-decoration: underline;
+            }
+
+        
+
+    </style>
 {% endblock %}

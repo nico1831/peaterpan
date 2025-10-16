@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}PeaterPan{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'store/styles.css' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,23 +11,44 @@
     <body>
 
         <nav>
-            <a href="{% url 'store:show_products_list' %}">
-                <img src="{% static 'logo.png' %}" alt="Site Logo" class="logo"/>
-            </a>            
+            {% if request.user.profile.user_type == 'buyer' %}
+                <a href="{% url 'store:show_products_list' %}">
+                    <img src="{% static 'logo.png' %}" alt="Site Logo" class="logo"/>
+                </a>
+            {% elif request.user.profile.user_type == 'seller' %}
+                <a href="{% url 'store:show_products_of_seller' id=request.user.profile.id %}">
+                    <img src="{% static 'logo.png' %}" alt="Site Logo" class="logo"/>
+                </a>
+            {% else %}
+                <a href="{% url 'store:show_products_list' %}">
+                    <img src="{% static 'logo.png' %}" alt="Site Logo" class="logo"/>
+                </a>
+            {% endif %}
+          
             <button id="menu-btn" class="menu-btn" aria-label="Open menu">
                 <img src="{% static 'menu-icon.png' %}" alt="☰" class="menu-icon"/>
             </button>
         </nav>
 
+        {% if request.user.profile.user_type == 'buyer' %}
         <!-- Sidebar content -->
         <div id="sidebar" class="sidebar">
         <button id="close-btn" class="close-btn" aria-label="Close menu">&times;</button>
         <ul>
-            <li><a href="{% url 'store:show_cart' %}">Cart</a></li>
-            <li><a href="{% url 'store:show_transactions' %}">Transactions</a></li>
-            <!-- more links -->
+            <li><a href="{% url 'store:show_cart' %}">My Transactions</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li> 
         </ul>
         </div>
+        {% elif request.user.profile.user_type == 'seller' %}
+                <div id="sidebar" class="sidebar">
+        <button id="close-btn" class="close-btn" aria-label="Close menu">&times;</button>
+        <ul>
+            <li><a href="{% url 'store:show_transactions' %}">My Transactions</a></li>
+            <li><a href="{% url 'store:add_product' %}">Add Product</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li> 
+        </ul>
+        </div>
+        {% endif %}
 
         <div class="content-div">
             {% block body %}{% endblock %}
@@ -47,7 +68,7 @@
                 sidebar.classList.remove("active");
                 });
             });
-            </script>
+        </script>
 
     </body>
 </html>

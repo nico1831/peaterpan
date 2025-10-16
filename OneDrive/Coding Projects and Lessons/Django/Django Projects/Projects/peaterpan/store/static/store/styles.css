@@ -10,9 +10,10 @@ body{
 
 nav {
     background-color: #92af39;
-    padding: 0.5px 15px;
+    padding: 2px 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
     position: fixed; /* Fix to viewport */
@@ -24,7 +25,7 @@ nav {
 }
 
 .logo{
-  height: 12vh; 
+  height: 35px; 
   width: auto; 
 }
 
@@ -34,7 +35,7 @@ nav {
   border: none;
   color: white;
   cursor: pointer;
-  margin-right: 30px;
+  margin-right: 50px;
 }
 
 .menu-icon {
@@ -73,6 +74,9 @@ nav {
 .sidebar ul {
   list-style: none;
   padding: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 2px; /* optional: control thickness of underline */
+  text-underline-offset: 4px; /* optional: space between text and underline */
 }
 
 .sidebar ul li {

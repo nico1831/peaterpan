@@ -8,17 +8,52 @@
 {% block body %}
 
     <div class="login-form">
-        <form action="{% url 'login' %}" method="post" class="update-add-form">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <input type="submit" value="Login" class="button-container">
-        </form>
+        <div class="login-part">
+            <h2>Already have an account?</h2>
+            <form action="{% url 'login' %}" method="post" class="update-add-form">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <input type="submit" value="Login" class="button-container">
+            </form>
+        </div>
 
-        <p>Don't have an account?</p>
-        <a href="{% url 'register' %}">
-            <button type="button">Register</button>
-        </a>
+        <div class="regis-part">
+            <h2>Don't have an account?</h2>
+            <a href="{% url 'register' %}">
+                <button type="button">Register</button>
+            </a>
+        </div>
     </div>
+
+    <style>
+        .login-form{
+            margin: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+        .login-part{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .update-add-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* space between items */
+            width: 300px; /* optional fixed width */
+            }
+        h2{
+            color: #92af39;
+        }
+        .regis-part{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 
 {% endblock %}

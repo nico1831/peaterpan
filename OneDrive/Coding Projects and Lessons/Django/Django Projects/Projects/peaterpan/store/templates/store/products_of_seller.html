@@ -1,14 +1,104 @@
 {% extends 'store/layout.html' %}
 
-{% block title %}store - Hobby Site{% endblock %}
-
 {% block body %}
-    <p>{{seller_profile.display_name}}'s products</p>
-    {% for product in products_of_seller %}
-        <li>
-            <a href="{% url 'store:show_product_details' product.id %}" class="btn">
-                {{ product.name }}
-            </a>
-        </li>
-    {% endfor %}
+    <div class="margin-container">
+        <p>My products</p>
+        <div class="product-type-grid">
+            {% for product in products_of_seller %}
+                {% if request.user.profile.user_type == 'seller' %}
+                    <a href="{% url 'store:update_product' product.id %}" class="product-card-link">
+                    <div class="product-card">
+                        <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
+                        <div class="product-info">
+                            <span class="product-name">{{ product.name }}</span>
+                            <span class="product-price">{{ product.price|floatformat:0 }}원</span>
+                        </div>
+                    </div>
+                    </a>
+                {% elif request.user.profile.user_type == 'buyer' %}
+                    <a href="{% url 'store:show_product_details' product.id %}" class="product-card-link">
+                    <div class="product-card">
+                        <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="product-image"/>
+                        <div class="product-info">
+                            <span class="product-name">{{ product.name }}</span>
+                            <span class="product-price">{{ product.price|floatformat:0 }}원</span>
+                        </div>
+                    </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <style>
+        .margin-container{
+            margin-top: 75px;
+            padding: 0 20px;
+        }
+        .margin-container p{
+            font-size: 24px;
+            color: #92af39;
+            margin-bottom: 20px;
+        }
+        .product-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            list-style: none;
+        }
+
+        .product-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .product-card-link:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #92af39;
+            border-radius: 12px;
+            box-sizing: border-box;
+            height: 200px;      /* Ideal height */
+            min-height: 180px;  /* Won't be smaller than this */
+        }
+
+        .product-image {
+            width: 100%;
+            height: 90%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; 
+        }
+
+        .product-info span {
+            font-size: clamp(9px, 1vw, 12px); /* min 16px, preferred 4vw, max 24px */
+        }
+
+        .product-name {
+            color: #282828;
+            margin-left: 10px;
+        }
+
+        .product-price {
+            color: #282828;
+            margin-right: 10px;
+        }   
+    </style>
 {% endblock %}

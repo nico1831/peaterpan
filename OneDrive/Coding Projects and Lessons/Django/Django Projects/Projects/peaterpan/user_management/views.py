@@ -19,7 +19,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("store:show_products_list"))
+            if hasattr(user, 'profile'):
+                if user.profile.user_type == 'seller':
+                    return HttpResponseRedirect(reverse('store:show_products_of_seller', args=[user.profile.id]))
+                elif user.profile.user_type == 'buyer':
+                    return HttpResponseRedirect(reverse('store:show_products_list'))
     return render(request, "user_management/login.html")
 
 def logout_view(request):

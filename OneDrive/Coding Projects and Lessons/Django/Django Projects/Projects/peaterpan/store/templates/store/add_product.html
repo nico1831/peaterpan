@@ -1,9 +1,7 @@
 {% extends "store/layout.html" %}
 {% block body %}
     <div class="whole-update-add-form">
-        <div class="top-left-section">
-            <h4>Add Product</h4>
-        </div>
+        <h4>Add Product</h4>
         <form method="post" class="update-add-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ add_product_form.as_p }}
@@ -11,7 +9,41 @@
         </form>
     </div>
 
-    <footer>
-        <a href="{% url 'store:show_products_list'%}">Back to list of all products</a>
-    </footer>
+    <style>
+        .whole-update-add-form {
+            margin-top: 35px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h4 {
+            font-size: 25px;
+            color: #92af39;
+        }
+
+        .update-add-form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            color: #92af39;
+        }
+
+        .update-add-form button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #92af39;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font: inherit;
+            border-radius: 12px;
+        }
+
+        .update-add-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
 {% endblock %}

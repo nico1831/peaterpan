@@ -7,21 +7,6 @@
 
 {% block body %}
     <div class="login-form">
-    <!-- <form action="{% url 'register' %}" method="post" class="update-add-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="text" name="display_name" placeholder="Display Name">
-        <input type="email" name="email" placeholder="Email">
-        <select name="user_type" required>
-            <option value="" disabled selected>Select User Type</option>
-            <option value="buyer">Buyer</option>
-            <option value="seller">Seller</option>
-        </select>        
-        <input type="hidden" id="id_latitude" name="latitude">
-        <input type="hidden" id="id_longitude" name="longitude">
-        <input type="submit" value="Register" class="button-container">
-    </form> -->
 
     <form action="{% url 'register' %}" method="post" class="update-add-form" enctype="multipart/form-data">
         {% csrf_token %}

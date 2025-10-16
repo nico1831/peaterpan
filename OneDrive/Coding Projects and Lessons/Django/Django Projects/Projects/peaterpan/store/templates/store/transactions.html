@@ -17,7 +17,6 @@
                         <li>
                             <strong>Product:</strong> {{ transaction.product.name }} |
                             <strong>Amount:</strong> {{ transaction.amount }} |
-                            <strong>Status:</strong> {{ transaction.get_status_display }} |
                             <strong>Date:</strong> {{ transaction.created_on|date:"Y-m-d H:i" }}
                         </li>
                     {% endfor %}
@@ -30,8 +29,18 @@
     {% endif %}
 </div>
 
-<footer>
-    <a href="{% url 'store:show_products_list' %}">Back to list of all products</a>
-</footer>
+<style>
+    .cart-container {
+        margin-top: 35px;
+        padding: 20px;
+    }
+    .cart-container, .cart-container * {
+    color: #ccc;
+    }
+
+    footer a {
+    color: #ccc;
+    }
+</style>
 
 {% endblock %}
